@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/06 16:28:21 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/07 13:50:04 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int	main(int ac, char **arg)
 		exit (1);
 	init_info(&info);
 	parsing(&info);
-	init_threads(&info);
+	threads(&info);
 }
