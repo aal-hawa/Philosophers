@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/10 18:47:14 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/10 19:46:24 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_mutex
 	pthread_mutex_t noname_mutex;
 	pthread_mutex_t timer_mutex;
 	pthread_mutex_t last_philo_mutex;
+	pthread_mutex_t died_mutex;
 	
 } t_mutex;
 
@@ -42,6 +43,9 @@ typedef struct s_philo
 {
 	int index;
 	int	is_eat_sleep;
+	int	is_eat;
+	int timer;
+	int die_timer;
 	
 } t_philo;
 
@@ -58,7 +62,7 @@ typedef struct s_info
 	int	to_think;
 	int to_sleep;
 	int timer_unsleep;  //use mutex
-	int is_died;
+	int is_died; //use mutex
 } t_info;
 
 typedef struct s_parm
