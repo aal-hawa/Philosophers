@@ -1,11 +1,12 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 SRC = main_mandotiry.c \
 	parsing/parsing.c \
 	threads/threads.c \
-	printing/printing.c 
+	printing/printing.c \
+	timer/timer.c 
 
 OBGS = $(SRC:.c=.o)
 
