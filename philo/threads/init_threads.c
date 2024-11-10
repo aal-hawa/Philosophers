@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/10 13:17:28 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/10 17:00:52 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ t_mutex	*init_mutex(t_info *info)
 	
 }
 
-t_mutexs	*init_mutexs(t_info *info)
+t_mutex	*init_mutexs(t_info *info)
 {
 	
 }
 
 int	init_threads(t_parm *parm)
 {
-	parm->info->forks = init_forks(parm->info);
-	if (!parm->info->forks)
+	parm->forks = init_forks(parm->info);
+	if (!parm->forks)
 		return (-1);
-	parm->info->mutexs = init_mutexs(parm->info);
-	if (!parm->info->mutexs)
+	parm->mutex = init_mutexs(parm->info);
+	if (!parm->mutex)
 		return (-1);
 	return (0);
 }
