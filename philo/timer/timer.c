@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 12:57:55 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/10 17:30:39 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:15:06 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	time_now(t_parm *parm)
 	while (1)
 	{
 		// pthread_mutex_lock(&mutex->timer_mutex);
-		if (info->timer_unsleep >= 2147483647)
+		if (info->timer_unsleep >= 2147483647) // edit this later
 		{
 			// pthread_mutex_unlock(&mutex->timer_mutex);
 			break;
@@ -30,6 +30,9 @@ int	time_now(t_parm *parm)
 		pthread_mutex_lock(&mutex->timer_mutex);
 		info->timer_unsleep++;
 		pthread_mutex_unlock(&mutex->timer_mutex);
-
+		pthread_mutex_lock(&mutex->died_mutex);
+		if (info->is_died == 1)
+			break ;
+		pthread_mutex_unlock(&mutex->died_mutex);
 	}
 }

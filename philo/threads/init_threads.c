@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/10 17:00:52 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:43:23 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,71 @@
 #include "../philo.h"
 
 
-t_fork	*init_fork(t_fork *fork)
+int init_fork(t_fork *fork, int index)
 {
+	int	is_error;
 	
+	is_error =  pthread_mutex_init(&fork->fork_mutex, NULL);
+	if (is_error != 0)
+		return (1);
+	fork->index = index;
+	fork->is_allowed = 1;
+	fork->next_fork =  NULL;
 }
 
-t_forks	*init_forks(t_info *info)
+int init_forks(t_parm *parm)
 {
+	int	i;
+	int	is_error;
+	t_fork *this_fork;
+	t_fork *next_fork;
 	
+	next_fork = NULL;
+	i = 0;
+	while (i < parm->info->philo_count)
+	{
+		this_fork = malloc(sizeof(t_fork));
+		if (!this_fork)
+			return (1);
+		is_error = init_fork(this_fork, i);
+		if (is_error != 0)
+			return (1);
+		next_fork = this_fork;
+		next_fork = next_fork->next_fork;
+		i++;
+	}
 }
 
-t_mutex	*init_mutex(t_info *info)
+
+int	init_mutex(t_mutex *mutex)
 {
+	int	is_error;
 	
+	is_error =  pthread_mutex_init(&mutex->died_mutex, NULL);
+	if (is_error != 0)
+		return (1);
+	is_error =  pthread_mutex_init(&mutex->last_philo_mutex, NULL);
+	if (is_error != 0)
+		return (1);
+	is_error =  pthread_mutex_init(&mutex->printf_mutex, NULL);
+	if (is_error != 0)
+		return (1);
+	is_error =  pthread_mutex_init(&mutex->timer_mutex, NULL);
+	if (is_error != 0)
+		return (1);
+	return (0);
 }
 
-t_mutex	*init_mutexs(t_info *info)
-{
-	
-}
 
 int	init_threads(t_parm *parm)
 {
-	parm->forks = init_forks(parm->info);
-	if (!parm->forks)
+	int	is_error;
+
+	is_error = init_forks(parm->info);
+	if (!is_error == 1)
 		return (-1);
-	parm->mutex = init_mutexs(parm->info);
-	if (!parm->mutex)
+	is_error = init_mutex(parm->mutex);
+	if (is_error == 1)
 		return (-1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/10 19:46:24 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/14 18:34:35 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 typedef struct s_mutex
 {
 	pthread_mutex_t printf_mutex;
-	pthread_mutex_t noname_mutex;
 	pthread_mutex_t timer_mutex;
 	pthread_mutex_t last_philo_mutex;
 	pthread_mutex_t died_mutex;
@@ -30,13 +29,17 @@ typedef struct s_mutex
 
 typedef struct s_fork
 {
+	pthread_mutex_t fork_mutex;
 	int	is_allowed; //use mutex
 	int index;
+	t_fork	*next_fork;
 } t_fork;
 
 typedef struct s_forks
 {
 	t_fork *fork;
+	t_forks *next_fork;
+	
 } t_forks;
 
 typedef struct s_philo
@@ -52,6 +55,8 @@ typedef struct s_philo
 typedef struct s_philos
 {
 	t_philo *philo;
+	t_philos *next_philo;
+	
 	int	last_philo_got_it; //use mutex
 } t_philos;
 
@@ -60,8 +65,9 @@ typedef struct s_info
 	int	philo_count;
 	int	to_eat;
 	int	to_think;
+	int	to_die;
 	int to_sleep;
-	int timer_unsleep;  //use mutex
+	unsigned long timer_unsleep;  //use mutex
 	int is_died; //use mutex
 } t_info;
 

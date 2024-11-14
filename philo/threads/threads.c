@@ -6,11 +6,25 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/10 18:58:40 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/14 12:37:28 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+void	philo_is_die(t_parm *parm)
+{
+	t_philo *philo;
+	t_info	*info;
+	
+	if (philo->timer >= info->to_die)
+	{
+		pthread_mutex_lock(&parm->mutex->died_mutex);
+		info->is_died = 1;
+		pthread_mutex_unlock(&parm->mutex->died_mutex);
+		
+	}
+}
 
 void *do_threed_philpo(t_parm *parm)
 {
@@ -18,13 +32,9 @@ void *do_threed_philpo(t_parm *parm)
 	t_fork *fork_right;
 	t_fork *fork_left;
 	t_info	*info;
-	int	is_eat;
-	int timer;
-	int die_timer;
 
-	timer = 0;
-	is_eat = 0;
-	
+	philo->timer = 0;
+	philo->is_eat = 0;
 	pthread_mutex_lock(&parm->mutex->last_philo_mutex);
 	philo = parm->philos->philo;  // git this with the correct philo
 	parm->philos->last_philo_got_it++;
@@ -33,33 +43,53 @@ void *do_threed_philpo(t_parm *parm)
 	{
 		if (info->is_died == 1)
 			break;
-		if (philo->is_eat_sleep == 0 && is_eat == 0)
+		if (philo->is_eat_sleep == 0 && philo->is_eat == 0)
 		{
 			//cheak if can get the fork_right && fork_left
 			// mutex lock right && left
+			philo->timer++;
+			pthread_mutex_lock(&fork_right->fork_mutex);
+			pthread_mutex_lock(&fork_left->fork_mutex);
+
 			if (fork_right->is_allowed == 1 && fork_left->is_allowed == 1)
 			{
 				fork_right->is_allowed = 0;
 				fork_left->is_allowed = 0;
-				is_eat = 1;
+				philo->is_eat = 1;
 			}
 			// mutex unlock right && left
+			pthread_mutex_unlock(&fork_right->fork_mutex);
+			pthread_mutex_unlock(&fork_left->fork_mutex);
 		}
-		else if (philo->is_eat_sleep == 0 && is_eat == 1)
+		else if (philo->is_eat_sleep == 0 && philo->is_eat == 1)
 		{
 			// time of eating ++
-			timer++;
-			if (timer >= info->to_eat)
+			philo->timer++;
+			if (philo->timer >= info->to_eat)
 			{
 				philo->is_eat_sleep = 1;
-				timer = 0;
+				philo->timer = 0;
+				pthread_mutex_lock(&fork_right->fork_mutex);
+				pthread_mutex_lock(&fork_left->fork_mutex);
+				fork_right->is_allowed = 1;
+				fork_left->is_allowed = 1;
+				philo->is_eat = 0;
+				// mutex unlock right && left
+				pthread_mutex_unlock(&fork_right->fork_mutex);
+				pthread_mutex_unlock(&fork_left->fork_mutex);
 			}
 		}
 		else if (philo->is_eat_sleep == 1)
 		{
 			// time of sleaping++
-
+				philo->timer++;
+			if (philo->timer >= info->to_sleep)
+			{
+				philo->is_eat_sleep = 0;
+				philo->timer = 0;
+			}
 		}
+		philo_is_die(philo);
 	}
 }
 int	init_pthread(pthread_t **p, t_info *info)
