@@ -6,6 +6,7 @@ SRC = main_mandotiry.c \
 	parsing/parsing.c \
 	threads/threads.c \
 	printing/printing.c \
+	libft/libft.c \
 	timer/timer.c 
 
 OBGS = $(SRC:.c=.o)

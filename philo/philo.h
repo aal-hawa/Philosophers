@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/14 18:34:35 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:39:41 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_info
 	int	to_think;
 	int	to_die;
 	int to_sleep;
+	int	how_many_eat;
 	unsigned long timer_unsleep;  //use mutex
 	int is_died; //use mutex
 } t_info;
@@ -79,9 +80,13 @@ typedef struct s_parm
 	t_philos *philos;
 } t_parm;
 
-int		parsing(t_info *info);
+int		parsing(int ac, char **arg);
 int		init_threads(t_parm *parm);
-void	ft_putstr_fd(char *s, int fd, int is_malloc);
+void	ft_putstr_fd(char *s, int philo_nbr, int is_malloc, int timer);
 int		threads(t_parm *parm);
 int		time_now(t_parm *parm);
+void	printing(pthread_mutex_t mutex, char *s, int philo_nbr, int timer);
+int		check_is_char(char *str);
+int		ft_atoi(const char *str);
+int		error_massege(char *str, int is_error);
 #endif
