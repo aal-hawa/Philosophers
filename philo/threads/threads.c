@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 13:12:12 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:39:40 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void *do_threed_philo(t_parm *parm)
 	t_fork *fork_right;
 	t_fork *fork_left;
 	t_info	*info;
-	unsigned long	this_time;
+	int	this_time;
+	int	last_time;
 	
 	philo->timer = 0;
 	philo->is_eat = 0;
@@ -67,9 +68,10 @@ void *do_threed_philo(t_parm *parm)
 	{
 		if (info->is_died == 1)
 			break;
-		if (this_time == info->timer_unsleep)
+		this_time = get_cur_time_millscd(info);
+		if (this_time == last_time)
 			continue ;
-		this_time = info->timer_unsleep;
+		last_time = this_time;
 		if (philo->is_eat_sleep == 0 && philo->is_eat == 0)
 		{
 			//cheak if can get the fork_right && fork_left

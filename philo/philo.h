@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 13:14:34 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:40:07 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ typedef struct s_info
 	int	to_die;
 	int to_sleep;
 	int	how_many_eat;
-	unsigned long timer_unsleep;  //use mutex
+	// unsigned long timer_unsleep;  //use mutex
 	int is_died; //use mutex
 	int	last_philo_got_it; //use mutex
+	struct timeval *fst_time;
 
 } t_info;
 
@@ -93,4 +94,6 @@ int		check_is_char(char *str);
 int		ft_atoi(const char *str);
 int		error_massege(char *str, int is_error);
 int		init_philo(t_parm *parm);
+int		get_cur_time_millscd(t_info *info);
+
 #endif
