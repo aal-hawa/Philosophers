@@ -6,11 +6,11 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:36:58 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/15 17:41:22 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:45:39 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 int	check_is_char(char *str)
 {

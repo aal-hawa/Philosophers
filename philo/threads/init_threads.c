@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 12:56:20 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 16:48:06 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int init_fork(t_fork *fork, int index)
 	fork->index = index;
 	fork->is_allowed = 1;
 	fork->next_fork =  NULL;
+	return (0);
 }
 
 int init_forks(t_parm *parm)
@@ -49,6 +50,7 @@ int init_forks(t_parm *parm)
 		next_fork = next_fork->next_fork;
 		i++;
 	}
+	return (0);
 }
 
 
@@ -105,7 +107,7 @@ int	init_threads(t_parm *parm)
 	int	is_error;
 
 	is_error = init_forks(parm);
-	if (!is_error == 1)
+	if (is_error == 1)
 		return (-1);
 	is_error = init_mutex(parm->mutex);
 	if (is_error == 1)
