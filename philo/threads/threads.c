@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/15 16:25:01 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:12:12 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,30 @@ void *do_threed_philo(t_parm *parm)
 	philo->timer = 0;
 	philo->is_eat = 0;
 	this_time = 0;
+	info = parm->info;
 	pthread_mutex_lock(&parm->mutex->last_philo_mutex);
-	philo = parm->philos->philo;  // git this with the correct philo
-	parm->philos->last_philo_got_it++;
+	philo = parm->philo;
+	fork_left = parm->fork;
+	fork_right = parm->fork;
+	while (philo)
+	{
+		if (philo->index == info->last_philo_got_it)
+			break ;
+		philo = philo->next_philo;
+	}
+	while (fork_left)
+	{
+		if (fork_left->index == philo->index - 1)
+			break ;
+		fork_left = fork_left->next_fork;
+	}
+	while (fork_right)
+	{
+		if (fork_right->index == philo->index)
+			break ;
+		fork_right = fork_right->next_fork;
+	}
+	parm->info->last_philo_got_it++;
 	pthread_mutex_unlock(&parm->mutex->last_philo_mutex);
 	while (1)
 	{
@@ -114,16 +135,20 @@ int	init_pthread(pthread_t **p, t_info *info)
 int	threads(t_parm *parm)
 {
 	pthread_t *p;
+	t_philo	*next_philo;
 	int is_error;
 	int i;
 	
 	i = 0;
+	next_philo = parm->philo;
 	is_error = init_pthread(&p, parm->info);
-	if (is_error == -1)
+	if (is_error == -2)
 		return (-1);
+	parm->pthrd = p;
 	is_error = init_threads(parm);
 	if (is_error == -1)
 		return (-1);
+	init_philo(parm);
 	while (i < parm->info->philo_count)
 	{
 		pthread_create(&p[i], NULL, &do_threed_philo, parm);

@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/15 17:39:41 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:14:34 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 typedef struct s_mutex
 {
@@ -35,12 +36,12 @@ typedef struct s_fork
 	t_fork	*next_fork;
 } t_fork;
 
-typedef struct s_forks
-{
-	t_fork *fork;
-	t_forks *next_fork;
+// typedef struct s_forks
+// {
+// 	t_fork *fork;
+// 	t_forks *next_fork;
 	
-} t_forks;
+// } t_forks;
 
 typedef struct s_philo
 {
@@ -49,16 +50,15 @@ typedef struct s_philo
 	int	is_eat;
 	int timer;
 	int die_timer;
-	
+	t_philo	*next_philo;
 } t_philo;
 
-typedef struct s_philos
-{
-	t_philo *philo;
-	t_philos *next_philo;
+// typedef struct s_philos
+// {
+// 	t_philo *philo;
+// 	t_philos *next_philo;
 	
-	int	last_philo_got_it; //use mutex
-} t_philos;
+// } t_philos;
 
 typedef struct s_info
 {
@@ -70,14 +70,17 @@ typedef struct s_info
 	int	how_many_eat;
 	unsigned long timer_unsleep;  //use mutex
 	int is_died; //use mutex
+	int	last_philo_got_it; //use mutex
+
 } t_info;
 
 typedef struct s_parm
 {
 	t_info *info;
-	t_forks *forks;
+	t_fork *fork;
 	t_mutex *mutex;
-	t_philos *philos;
+	t_philo *philo;
+	pthread_t *pthrd;
 } t_parm;
 
 int		parsing(int ac, char **arg);
@@ -89,4 +92,5 @@ void	printing(pthread_mutex_t mutex, char *s, int philo_nbr, int timer);
 int		check_is_char(char *str);
 int		ft_atoi(const char *str);
 int		error_massege(char *str, int is_error);
+int		init_philo(t_parm *parm);
 #endif

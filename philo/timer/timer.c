@@ -6,11 +6,16 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 12:57:55 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/14 18:15:06 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 13:13:54 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+int	get_cur_time_millscd()
+{
+	
+}
 
 int	time_now(t_parm *parm)
 {

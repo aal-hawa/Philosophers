@@ -6,16 +6,13 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:13:57 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/15 17:01:11 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 12:33:35 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-
-
-
-int	parsing(int ac, char **arg)
+int	 parsing(int ac, char **arg)
 {
 	int	i;
 	int	is_error;
