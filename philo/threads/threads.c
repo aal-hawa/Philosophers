@@ -6,21 +6,18 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 15:39:40 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:51:43 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	philo_is_die(t_parm *parm, int this_time)
+void	philo_is_die(t_parm *parm, t_philo *philo, int this_time)
 {
-	t_philo *philo;
-	t_info	*info;
-	
-	if (philo->timer >= info->to_die)
+	if (philo->timer >=parm->info->to_die)
 	{
 		pthread_mutex_lock(&parm->mutex->died_mutex);
-		info->is_died = 1;
+		parm->info->is_died = 1;
 		printing(parm->mutex->printf_mutex, "died", philo->index, this_time);
 		pthread_mutex_unlock(&parm->mutex->died_mutex);
 		
@@ -36,12 +33,12 @@ void *do_threed_philo(t_parm *parm)
 	int	this_time;
 	int	last_time;
 	
-	philo->timer = 0;
-	philo->is_eat = 0;
 	this_time = 0;
 	info = parm->info;
 	pthread_mutex_lock(&parm->mutex->last_philo_mutex);
 	philo = parm->philo;
+	philo->timer = 0;
+	philo->is_eat = 0;
 	fork_left = parm->fork;
 	fork_right = parm->fork;
 	while (philo)
@@ -122,7 +119,7 @@ void *do_threed_philo(t_parm *parm)
 				philo->timer = 0;
 			}
 		}
-		philo_is_die(philo, this_time);
+		philo_is_die(parm, philo, this_time);
 	}
 	return (NULL);
 }

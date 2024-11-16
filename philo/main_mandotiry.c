@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 13:06:14 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:47:05 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ int	init_info(t_info *info,int ac, char **arg)
 // }
 void	free_all_mlc(t_parm *parm)
 {
+	exit(0);
 	// pthread_detach();
+	free(parm->pthrd);
 }
 
 int	main(int ac, char **arg)
@@ -56,12 +58,12 @@ int	main(int ac, char **arg)
 	t_parm parm;
 	int	is_error;
 	
-	if (ac != 5 || ac != 6)
+	if (ac < 5 || ac > 6)
 	{
 		error_massege("Error four or five paramiter\n", 0);
 		exit (1);
 	}
-	is_error = parsing(&ac, arg);
+	is_error = parsing(ac, arg);
 	if (is_error == -1)
 		exit (1);
 	is_error = init_info(&info, ac, arg);

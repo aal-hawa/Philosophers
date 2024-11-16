@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 15:40:07 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/16 15:42:19 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_fork
 	pthread_mutex_t fork_mutex;
 	int	is_allowed; //use mutex
 	int index;
-	t_fork	*next_fork;
+	struct s_fork	*next_fork;
 } t_fork;
 
 // typedef struct s_forks
@@ -50,7 +50,7 @@ typedef struct s_philo
 	int	is_eat;
 	int timer;
 	int die_timer;
-	t_philo	*next_philo;
+	struct s_philo	*next_philo;
 } t_philo;
 
 // typedef struct s_philos
