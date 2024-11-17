@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 16:48:06 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/17 18:05:53 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int init_forks(t_parm *parm)
 	
 	this_fork = NULL;
 	next_fork = NULL;
-	parm->fork = this_fork;
+	// parm->fork = this_fork;
 	i = 0;
 	while (i < parm->info->philo_count)
 	{
@@ -46,6 +46,10 @@ int init_forks(t_parm *parm)
 		is_error = init_fork(this_fork, i);
 		if (is_error != 0)
 			return (1);
+		if (i == 0)
+		{
+			parm->fork = this_fork;
+		}
 		next_fork = this_fork;
 		next_fork = next_fork->next_fork;
 		i++;
@@ -57,8 +61,11 @@ int init_forks(t_parm *parm)
 int	init_mutex(t_mutex *mutex)
 {
 	int	is_error;
+	write(1, "uuuuuuuuuu0\n", 12);
 	
 	is_error =  pthread_mutex_init(&mutex->died_mutex, NULL);
+	write(1, "uuuuuuuuuu1\n", 12);
+
 	if (is_error != 0)
 		return (1);
 	is_error =  pthread_mutex_init(&mutex->last_philo_mutex, NULL);
@@ -105,11 +112,18 @@ int	init_philo(t_parm *parm)
 int	init_threads(t_parm *parm)
 {
 	int	is_error;
+	t_mutex	mutex;
 
+	// mutex = malloc(sizeof(t_mutex));
+	parm->mutex = &mutex;
 	is_error = init_forks(parm);
+	write(1, "uuuuuuuuuu\n", 11);
+
 	if (is_error == 1)
 		return (-1);
 	is_error = init_mutex(parm->mutex);
+	write(1, "uuuuuuuuuu\n", 11);
+
 	if (is_error == 1)
 		return (-1);
 	return (0);

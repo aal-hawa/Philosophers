@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/17 13:36:56 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:49:28 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	main(int ac, char **arg)
 	t_info info;
 	t_parm parm;
 	int	is_error;
-	
 	if (ac < 5 || ac > 6)
 	{
 		error_massege("Error four or five paramiter\n", 0);
@@ -73,6 +72,7 @@ int	main(int ac, char **arg)
 	// init_parm(&parm);
 	parm.info = &info;
 	is_error = threads(&parm);
+	
 	if (is_error == -2)
 		exit (1);
 	free_all_mlc(&parm);

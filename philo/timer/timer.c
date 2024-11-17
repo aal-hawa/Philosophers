@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 12:57:55 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/17 13:38:20 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/17 16:01:16 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@ int	get_cur_time_millscd(t_info *info)
 {
 	struct timeval cur_time;
 	long long time_sub;
+	printf("%s","zzzzzzzzzzzzzzzzzzzzzzz\n");
+	sleep(2);
 	if (info->is_get_timer == 0)
 	{
-		gettimeofday(&info->fst_time, NULL); 
+
 		info->is_get_timer = 1;
+		gettimeofday(&info->fst_time, NULL); 
 	}
-	printf("%s","zzzzzzzzzzzzzzzzzzzzzzz\n");
 	gettimeofday(&cur_time, NULL); 
 	printf("%d\n",cur_time.tv_usec);
 	printf("%d\n",info->fst_time.tv_usec);
 	printf("%s","qqqqqqqqqqqqqqqqqqqqqqqq\n");
 
 	time_sub = cur_time.tv_usec - info->fst_time.tv_usec;
+	printf("%lld\n",time_sub);
+	printf("%d\n",(int)(time_sub % 1000));
 	return ((int)(time_sub % 1000));
 }
 
