@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 17:02:47 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:27:48 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	philo_is_die(t_parm *parm, t_philo *philo, int this_time)
 
 void *do_threed_philo(void *ptr)
 {
+	// sleep(2);
 	t_parm *parm;
 	t_philo *philo;
 	t_fork *fork_right;
@@ -33,7 +34,6 @@ void *do_threed_philo(void *ptr)
 	t_info	*info;
 	int	this_time;
 	int	last_time;
-	
 	parm = (t_parm *)ptr;
 	this_time = 0;
 	info = parm->info;
@@ -68,6 +68,7 @@ void *do_threed_philo(void *ptr)
 		if (info->is_died == 1)
 			break;
 		this_time = get_cur_time_millscd(info);
+		printf("%s","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
 		if (this_time == last_time)
 			continue ;
 		last_time = this_time;
@@ -143,6 +144,7 @@ int	threads(t_parm *parm)
 	i = 0;
 	next_philo = parm->philo;
 	is_error = init_pthread(&p, parm->info);
+	printf("%p\n", p);
 	if (is_error == -2)
 		return (-1);
 	parm->pthrd = p;
@@ -152,11 +154,13 @@ int	threads(t_parm *parm)
 	init_philo(parm);
 	while (i < parm->info->philo_count)
 	{
-		is_error = pthread_create(&p[i], NULL, &do_threed_philo, parm);
+		is_error = pthread_create(&p[i], NULL, &do_threed_philo, (void *)parm);
+
 		if (is_error != 0)
 			return (-1);
 		i++;
 	}
+	sleep(3);
 	i = 0;
 	while (i < parm->info->philo_count)
 	{

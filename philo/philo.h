@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 15:42:19 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/17 13:36:41 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ typedef struct s_info
 	// unsigned long timer_unsleep;  //use mutex
 	int is_died; //use mutex
 	int	last_philo_got_it; //use mutex
-	struct timeval *fst_time;
+	int	is_get_timer;
+	struct timeval fst_time;
 
 } t_info;
 
