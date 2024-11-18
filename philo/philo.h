@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/17 15:55:00 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/18 18:47:36 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,6 @@ typedef struct s_fork
 	struct s_fork	*next_fork;
 } t_fork;
 
-// typedef struct s_forks
-// {
-// 	t_fork *fork;
-// 	t_forks *next_fork;
-	
-// } t_forks;
-
 typedef struct s_philo
 {
 	int index;
@@ -50,15 +43,8 @@ typedef struct s_philo
 	int	is_eat;
 	int timer;
 	int die_timer;
-	struct s_philo	*next_philo;
+	struct s_philo	*next;
 } t_philo;
-
-// typedef struct s_philos
-// {
-// 	t_philo *philo;
-// 	t_philos *next_philo;
-	
-// } t_philos;
 
 typedef struct s_info
 {
@@ -96,5 +82,6 @@ int		ft_atoi(const char *str);
 int		error_massege(char *str, int is_error);
 int		init_philo(t_parm *parm);
 int		get_cur_time_millscd(t_info *info);
-
+void 	*do_threed_philo(void *ptr);
+void	philo_is_die(t_parm *parm, t_philo *philo, int this_time);
 #endif

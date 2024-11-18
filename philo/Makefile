@@ -1,10 +1,10 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -pthread 
 
 SRC = main_mandotiry.c \
 	parsing/parsing.c \
-	threads/threads.c threads/init_threads.c \
+	threads/threads.c threads/init_threads.c threads/routine.c \
 	printing/printing.c \
 	libft/libft.c \
 	timer/timer.c 

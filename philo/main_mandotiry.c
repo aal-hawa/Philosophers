@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/17 15:49:28 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:45:52 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	main(int ac, char **arg)
 	is_error = parsing(ac, arg);
 	if (is_error == -1)
 		exit (1);
+	info.last_philo_got_it = 1;
 	is_error = init_info(&info, ac, arg);
 	if (is_error == -1)
 		exit (1);
