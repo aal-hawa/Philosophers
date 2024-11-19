@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 12:57:55 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/18 14:57:56 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:41:18 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,17 @@
 int	get_cur_time_millscd(t_info *info)
 {
 	struct timeval cur_time;
-	long long time_sub;
-	printf("%s","zzzzzzzzzzzzzzzzzzzzzzz\n");
-	// sleep(2);
+	long curr_time_sec;
+	long curr_time_microsec;
 	if (info->is_get_timer == 0)
 	{
-
 		info->is_get_timer = 1;
 		gettimeofday(&info->fst_time, NULL); 
 	}
 	gettimeofday(&cur_time, NULL); 
-	printf("%d\n",cur_time.tv_usec);
-	printf("%d\n",info->fst_time.tv_usec);
-	write(1, "v\n", 2);
-	printf("%s","qqqqqqqqqqqqqqqqqqqqqqqq\n");
-
-	time_sub = cur_time.tv_usec - info->fst_time.tv_usec;
-	printf("%lld\n",time_sub);
-	printf("%d\n",(int)(time_sub % 1000));
-	return ((int)(time_sub % 1000));
+	curr_time_sec = cur_time.tv_sec - info->fst_time.tv_sec;
+	curr_time_microsec = cur_time.tv_usec - info->fst_time.tv_usec;
+	return ((int)((curr_time_sec * 1000) + (curr_time_microsec / 1000)));
 }
 
 // int	time_now(t_parm *parm)

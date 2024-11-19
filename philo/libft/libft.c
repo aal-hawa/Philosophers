@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:36:58 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/16 16:45:39 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:42:13 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	check_is_char(char *str)
 		else
 		{
 			if (str[i] == '-')
-				error_massege("Error nigative number\n", 0);
+				error_massege("Error nigative number", 0);
 			else if (i == 0 && str[i] == '+')
 			{
 				i++;
 				continue ;
 			}
 			else
-				error_massege("Error only numbers\n", 0);
+				error_massege("Error only numbers", 0);
 			return (-1);
 		}
 	}

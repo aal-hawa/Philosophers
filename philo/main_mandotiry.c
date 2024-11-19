@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/18 16:45:52 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/19 11:41:59 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ int	init_info(t_info *info,int ac, char **arg)
 	is_error = 0;
 	info->philo_count = ft_atoi(arg[1]);
 	if (info->philo_count == 0)
-		is_error = error_massege("Error no philo\n", is_error);
+		is_error = error_massege("Error no philo", is_error);
 	info->to_die = ft_atoi(arg[2]);
 	if (info->to_die == 0)
-		is_error = error_massege("Error no philo\n", is_error);
+		is_error = error_massege("Error no philo", is_error);
 	info->to_eat = ft_atoi(arg[3]);
 	if (info->to_eat == 0)
-		is_error = error_massege("Error no philo\n", is_error);
+		is_error = error_massege("Error no philo", is_error);
 	info->to_sleep = ft_atoi(arg[4]);
 	if (info->to_sleep == 0)
-		is_error = error_massege("Error no philo\n", is_error);
+		is_error = error_massege("Error no philo", is_error);
 	if (ac == 6)
 	{
 		info->how_many_eat = ft_atoi(arg[5]);
 		if (info->how_many_eat == 0)
-			is_error = error_massege("Error no philo\n", is_error);
+			is_error = error_massege("Error no philo", is_error);
 	}
 	else
 		info->how_many_eat = 0;
@@ -60,7 +60,7 @@ int	main(int ac, char **arg)
 	int	is_error;
 	if (ac < 5 || ac > 6)
 	{
-		error_massege("Error four or five paramiter\n", 0);
+		error_massege("Error four or five paramiter", 0);
 		exit (1);
 	}
 	is_error = parsing(ac, arg);
