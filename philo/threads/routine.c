@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:13:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/19 11:43:10 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:01:31 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,12 @@ void	cheak_can_eat(t_parm *parm, t_philo *philo, t_fork *fork_left, t_fork *fork
 	philo->timer++;
 	pthread_mutex_lock(&fork_right->fork_mutex);
 	pthread_mutex_lock(&fork_left->fork_mutex);
-
+	printf("%s\n" , "aaaaaa");
+	printf("fork_right->is_allowed: %d\n" , fork_right->is_allowed);
+	printf("fork_left->is_allowed: %d\n" , fork_left->is_allowed);
 	if (fork_right->is_allowed == 1 && fork_left->is_allowed == 1)
 	{
+		printf("%s\n" , "ssssss");
 		fork_right->is_allowed = 0;
 		printing(parm->mutex->printf_mutex, "has taken a fork", philo->index, this_time);
 		fork_left->is_allowed = 0;
@@ -69,6 +72,8 @@ void	select_philo_fork(t_parm *parm, t_philo *philo, t_fork *fork_left, t_fork *
 	philo->is_eat = 0;
 	fork_left = parm->fork;
 	fork_right = parm->fork;
+	
+	
 	while (philo)
 	{
 		if (philo->index == info->last_philo_got_it)
@@ -77,23 +82,30 @@ void	select_philo_fork(t_parm *parm, t_philo *philo, t_fork *fork_left, t_fork *
 	}
 	while (fork_left)
 	{
+		printf("fork_left->index: %d\n", fork_left->index);
 		if (fork_left->index == philo->index - 1)
 			break ;
-		fork_left = fork_left->next_fork;
+		fork_left = fork_left->next;
 	}
 	while (fork_right)
 	{
+		printf("fork_right->index: %d\n", fork_right->index);
 		if (fork_right->index == philo->index)
 			break ;
-		fork_right = fork_right->next_fork;
+		fork_right = fork_right->next;
 		if (!fork_right && info->philo_count > 1 )
 		{
 			fork_right = parm->fork;
 			break ;
 		}
+		
 	}
 	// info->last_philo_got_it++;
 	pthread_mutex_unlock(&parm->mutex->last_philo_mutex);
+	// printf("fork_left->is_allowed: %d\n", fork_left->is_allowed);
+	// printf("fork_right->is_allowed: %d\n", fork_right->is_allowed);
+	// exit(0);
+
 }
 
 void	loop_philo(t_parm *parm, t_philo *philo, t_fork *fork_left, t_fork *fork_right, t_info *info, int this_time)
@@ -104,22 +116,25 @@ void	loop_philo(t_parm *parm, t_philo *philo, t_fork *fork_left, t_fork *fork_ri
 		if (info->is_died == 1)
 			break;
 		this_time = get_cur_time_millscd(info);
-		if (philo->is_eat_sleep == 0 && philo->is_eat == 0){
-			cheak_can_eat(parm, philo, fork_left, fork_right, this_time);
-		}
-		else if (philo->is_eat_sleep == 0 && philo->is_eat == 1){
-			philo_eating(parm, philo, fork_left, fork_right, info, this_time);
-	}
-		else if (philo->is_eat_sleep == 1)
+		if (info->philo_count > 1)
 		{
-			// time of sleaping++
-				philo->timer++;
-			if (philo->timer >= info->to_sleep)
+			if (philo->is_eat_sleep == 0 && philo->is_eat == 0)
+				cheak_can_eat(parm, philo, fork_left, fork_right, this_time);
+			else if (philo->is_eat_sleep == 0 && philo->is_eat == 1)
+				philo_eating(parm, philo, fork_left, fork_right, info, this_time);
+			else if (philo->is_eat_sleep == 1)
 			{
-				philo->is_eat_sleep = 0;
-				philo->timer = 0;
+				// time of sleaping++
+					philo->timer++;
+				if (philo->timer >= info->to_sleep)
+				{
+					philo->is_eat_sleep = 0;
+					philo->timer = 0;
+				}
 			}
 		}
+		printf("this_time: %d\n", this_time);
+
 		philo_is_die(parm, philo, this_time);
 	}
 }
@@ -138,6 +153,10 @@ void *do_threed_philo(void *ptr)
 	this_time = 0;
 	info = parm->info;
 	select_philo_fork(parm, &philo, &fork_left, &fork_right, info);
+	// printf("fork_left->is_allowed: %d\n", fork_left.is_allowed);
+	// printf("fork_right->is_allowed: %d\n", fork_right.is_allowed);
+
+	// exit(0);
 	loop_philo(parm, &philo, &fork_left, &fork_right, info, this_time);
 	return (NULL);
 }
