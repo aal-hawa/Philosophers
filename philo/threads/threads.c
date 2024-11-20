@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/19 20:03:45 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:00:24 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	philo_is_die(t_parm *parm, t_philo *philo, int this_time)
 {
-	if (this_time >= parm->info->to_die)
+	
+	if (this_time >= philo->next_die_timer)
 	{
 		pthread_mutex_lock(&parm->mutex->died_mutex);
 		parm->info->is_died = 1;

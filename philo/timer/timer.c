@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 12:57:55 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/19 20:00:43 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:59:50 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,3 @@ int	get_cur_time_millscd(t_info *info)
 	curr_time_millsecond = (int)((curr_time_sec * 1000) + (curr_time_microsec / 1000));
 	return (curr_time_millsecond);
 }
-
-// int	time_now(t_parm *parm)
-// {
-// 	t_info *info = parm->info;
-// 	t_mutex *mutex = parm->mutex;
-// 	while (1)
-// 	{
-// 		// pthread_mutex_lock(&mutex->timer_mutex);
-// 		if (info->timer_unsleep >= 2147483647) // edit this later
-// 		{
-// 			// pthread_mutex_unlock(&mutex->timer_mutex);
-// 			break;
-// 		}
-// 		// pthread_mutex_unlock(&mutex->timer_mutex);
-		
-// 		usleep(1);
-// 		pthread_mutex_lock(&mutex->timer_mutex);
-// 		info->timer_unsleep++;
-// 		pthread_mutex_unlock(&mutex->timer_mutex);
-// 		pthread_mutex_lock(&mutex->died_mutex);
-// 		if (info->is_died == 1)
-// 			break ;
-// 		pthread_mutex_unlock(&mutex->died_mutex);
-// 	}
-// }

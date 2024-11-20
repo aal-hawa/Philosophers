@@ -6,13 +6,11 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/20 14:32:46 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/20 18:41:18 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../philo.h"
-
 
 int init_fork(t_fork *fork, int index)
 {
@@ -21,8 +19,12 @@ int init_fork(t_fork *fork, int index)
 	is_error =  pthread_mutex_init(&fork->fork_mutex, NULL);
 	if (is_error != 0)
 		return (1);
+	is_error =  pthread_mutex_init(&fork->last_eating_mutex, NULL);
+	if (is_error != 0)
+		return (1);
 	fork->index = index;
 	fork->is_allowed = 1;
+	fork->last_who_eating = -1;
 	fork->next =  NULL;
 	return (0);
 }
@@ -60,7 +62,6 @@ int init_forks(t_parm *parm)
 	return (0);
 }
 
-
 int	init_mutex(t_mutex *mutex)
 {
 	int	is_error;
@@ -97,7 +98,9 @@ int	init_philo(t_parm *parm)
 		this_philo->is_eat = 0;
 		this_philo->is_eat_sleep = 0;
 		this_philo->timer = 0;
-		this_philo->die_timer = 0;
+		this_philo->curr_die_timer = 0;
+		this_philo->next_die_timer = 0;
+		this_philo->how_many_eat = 0;
 		if (i == 0)
 		{
 			first_philo = this_philo;
@@ -113,9 +116,7 @@ int	init_philo(t_parm *parm)
 	parm->philo = first_philo;
 	next_ph = parm->philo;
 	while (next_ph)
-	{
 		next_ph = next_ph->next;
-	}
 	return (0);
 }
 
@@ -123,8 +124,7 @@ int	init_threads(t_parm *parm)
 {
 	int	is_error;
 	t_mutex	mutex;
-
-	// mutex = malloc(sizeof(t_mutex));
+	
 	parm->mutex = &mutex;
 	is_error = init_forks(parm);
 	if (is_error == 1)
