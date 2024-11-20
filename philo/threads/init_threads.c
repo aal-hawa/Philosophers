@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/19 12:51:51 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:32:46 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int init_forks(t_parm *parm)
 	
 	this_fork = NULL;
 	next_fork = NULL;
-	// parm->fork = this_fork;
 	i = 0;
 	while (i < parm->info->philo_count)
 	{
@@ -44,7 +43,6 @@ int init_forks(t_parm *parm)
 		if (!this_fork)
 			return (1);
 		is_error = init_fork(this_fork, i);
-		printf("this_fork->is_allowed: %d\n", this_fork->is_allowed);
 		if (is_error != 0)
 			return (1);
 		if (i == 0)
@@ -113,6 +111,11 @@ int	init_philo(t_parm *parm)
 		i++;
 	}
 	parm->philo = first_philo;
+	next_ph = parm->philo;
+	while (next_ph)
+	{
+		next_ph = next_ph->next;
+	}
 	return (0);
 }
 

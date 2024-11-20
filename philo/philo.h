@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/19 12:46:20 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/20 12:02:58 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ typedef struct s_philo
 	int	is_eat;
 	int timer;
 	int die_timer;
+	t_fork *fork_right;
+	t_fork *fork_left; 
 	struct s_philo	*next;
 } t_philo;
 
