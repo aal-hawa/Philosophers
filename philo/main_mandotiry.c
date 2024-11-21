@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/20 15:57:49 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:57:56 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,6 @@ int	init_info(t_info *info,int ac, char **arg)
 	return (is_error);	
 }
 
-// void	init_parm(t_parm *parm)
-// {
-	
-// }
-void	free_all_mlc(t_parm *parm)
-{
-	exit(0);
-	// pthread_detach();
-	free(parm->pthrd);
-}
-
 int	main(int ac, char **arg)
 {
 	t_info info;
@@ -66,16 +55,16 @@ int	main(int ac, char **arg)
 	}
 	is_error = parsing(ac, arg);
 	if (is_error == -1)
-		exit (1);
+		return (1);
 	info.last_philo_got_it = 1;
 	is_error = init_info(&info, ac, arg);
 	if (is_error == -1)
-		exit (1);
+		return (1);
 	// init_parm(&parm);
 	parm.info = &info;
 	is_error = threads(&parm);
 	
-	if (is_error == -2)
-		exit (1);
-	free_all_mlc(&parm);
+	// if (is_error == -2)
+	// 	exit (1);
+	free_all_mlc(&parm, is_error);
 }

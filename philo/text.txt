@@ -1,0 +1,5 @@
+-2 return only //
+-3 free and  only (pthread_detach_func)
+-4 do Up
+-5 do Up
+-6 do Up
