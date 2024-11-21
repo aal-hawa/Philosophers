@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 13:36:48 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:32:03 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int		init_threads(t_parm *parm);
 void	ft_putstr_fd(char *s, int philo_nbr, int is_malloc, int timer);
 int		threads(t_parm *parm);
 int		time_now(t_parm *parm);
-void	printing(pthread_mutex_t mutex, char *s, int philo_nbr, int timer);
+void	printing(t_parm *parm, char *s, int philo_nbr, int timer);
+void	printing_died(t_parm *parm, char *s, int philo_nbr, int timer);
 int		check_is_char(char *str);
 int		ft_atoi(const char *str);
 int		error_massege(char *str, int is_error);

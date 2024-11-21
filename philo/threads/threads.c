@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 13:40:56 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:55:17 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 void	philo_is_die(t_parm *parm, t_philo *philo, int this_time)
 {
-	
-	if (this_time >= philo->next_die_timer)
+	int	is_can_print;
+
+	is_can_print = 1;
+	if (philo->next_die_timer > parm->info->to_die)
 	{
 		pthread_mutex_lock(&parm->mutex->died_mutex);
+		if (parm->info->is_died == 1)
+			is_can_print = 0;
 		parm->info->is_died = 1;
-		printing(parm->mutex->printf_mutex, "died", philo->index, this_time);
 		pthread_mutex_unlock(&parm->mutex->died_mutex);
+		if (is_can_print == 1)
+			printing_died(parm, "died", philo->index, this_time);
 	}
 }
 

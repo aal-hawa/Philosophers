@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:13:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/20 18:51:50 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/21 17:57:52 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,17 @@ t_philo *	philo_eating(t_parm *parm, t_philo *philo, t_info *info, int this_time
 		pthread_mutex_lock(&philo->fork_right->fork_mutex);
 		philo->fork_right->is_allowed = 1;
 		pthread_mutex_unlock(&philo->fork_right->fork_mutex);
-		
 		pthread_mutex_lock(&philo->fork_left->fork_mutex);
 		philo->fork_left->is_allowed = 1;
 		pthread_mutex_unlock(&philo->fork_left->fork_mutex);
 		philo->how_many_eat++;
-
 		philo->is_eat = 0;
-		printing(parm->mutex->printf_mutex, "is sleeping", philo->index, this_time);
-		philo->next_die_timer += info->to_die;
+		printing(parm, "is sleeping", philo->index, this_time);
 	}
 	return (philo);
 }
 
-t_philo *	cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
+t_philo	*cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
 {
 	pthread_mutex_lock(&philo->fork_right->fork_mutex);
 	pthread_mutex_lock(&philo->fork_left->fork_mutex);
@@ -59,12 +56,14 @@ t_philo *	cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
 			{
 				philo->fork_right->is_allowed = 0;
 				philo->fork_right->last_who_eating = philo->index;
-				printing(parm->mutex->printf_mutex, "has taken a fork", philo->index, this_time);
+				printing(parm, "has taken a fork", philo->index, this_time);
 				philo->fork_left->is_allowed = 0;
 				philo->fork_left->last_who_eating = philo->index;
-				printing(parm->mutex->printf_mutex, "has taken a fork", philo->index, this_time);
+				printing(parm, "has taken a fork", philo->index, this_time);
 				philo->is_eat = 1;
-				printing(parm->mutex->printf_mutex, "is eating", philo->index, this_time);
+				printing(parm, "is eating", philo->index, this_time);
+				// philo->next_die_timer += parm->info->to_die;
+				philo->next_die_timer = 0;
 			}
 			pthread_mutex_unlock(&philo->fork_left->last_eating_mutex);
 		}
@@ -80,17 +79,14 @@ void	loop_philo(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 	int	last_time;
 
 	last_time = -1;
-	philo->next_die_timer += info->to_die;
+	// philo->next_die_timer += info->to_die;
 	while (1)
 	{
 		if (info->is_died == 1)
 			break;
 		this_time = get_cur_time_millscd(info);
 		if (last_time == this_time)
-		{
-			// usleep(1);
 			continue;
-		}
 		last_time = this_time;
 		if (info->how_many_eat > 0 && philo->how_many_eat == info->how_many_eat)
 			break ;
@@ -104,7 +100,9 @@ void	loop_philo(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 				philo_sleaping(philo, info);
 		}
 		philo->curr_die_timer++;
+		philo->next_die_timer++;
 		philo_is_die(parm, philo, this_time);
+		usleep(100);
 	}
 }
 

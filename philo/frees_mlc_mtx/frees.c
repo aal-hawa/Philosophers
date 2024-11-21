@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:58:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 13:46:40 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/21 14:18:52 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ void	free_forks(t_parm *parm)
 
 void	destroy_mutexs(t_parm *parm)
 {
-	pthread_mutex_destroy(&parm->mutex->printf_mutex);
-	pthread_mutex_destroy(&parm->mutex->timer_mutex);
-	pthread_mutex_destroy(&parm->mutex->last_philo_mutex);
-	pthread_mutex_destroy(&parm->mutex->died_mutex);
+	if (parm->mutex->printf_mutex_check == 1)
+		pthread_mutex_destroy(&parm->mutex->printf_mutex);
+	if (parm->mutex->timer_mutex_check == 1)
+		pthread_mutex_destroy(&parm->mutex->timer_mutex);
+	if (parm->mutex->last_philo_mutex_check == 1)
+		pthread_mutex_destroy(&parm->mutex->last_philo_mutex);
+	if (parm->mutex->died_mutex_check == 1)
+		pthread_mutex_destroy(&parm->mutex->died_mutex);
 	
 }
 

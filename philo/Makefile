@@ -7,7 +7,8 @@ SRC = main_mandotiry.c \
 	threads/threads.c threads/init_threads.c threads/routine.c \
 	printing/printing.c \
 	libft/libft.c \
-	timer/timer.c 
+	timer/timer.c  \
+	frees_mlc_mtx/frees.c 
 
 OBGS = $(SRC:.c=.o)
 
