@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 17:55:17 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/22 16:34:40 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int	init_pthread(pthread_t **p, t_info *info)
 int	threads(t_parm *parm)
 {
 	pthread_t *p;
-	t_philo	*next_philo;
+	// t_philo	*next_philo;
 	int is_error;
 	int i;
 	
 	i = 0;
-	next_philo = parm->philo;
+	// next_philo = parm->philo;
 	is_error = init_pthread(&p, parm->info);
 	if (is_error != 0)
 		return (is_error);
