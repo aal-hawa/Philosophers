@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:58:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 14:18:52 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:32:51 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	destroy_mutexs(t_parm *parm)
 		pthread_mutex_destroy(&parm->mutex->last_philo_mutex);
 	if (parm->mutex->died_mutex_check == 1)
 		pthread_mutex_destroy(&parm->mutex->died_mutex);
-	
+	free(parm->mutex);
 }
 
 void	free_philos(t_parm *parm)
@@ -47,11 +47,13 @@ void	free_philos(t_parm *parm)
 	t_philo	*next_philo;
 
 	this_philo = parm->philo;
+	next_philo = NULL;
 	while (this_philo)
 	{
 		next_philo = this_philo->next;
 		free(this_philo);
 		this_philo = next_philo;
+		
 	}
 }
 
@@ -79,7 +81,10 @@ void	free_all_mlc(t_parm *parm, int is_error)
 	// free forks
 	free_forks(parm);
 	if (is_error == -3)
+	{
+		free(parm->mutex);
 		return ;
+	}
 	// destroy mutexs
 	destroy_mutexs(parm);
 	if (is_error == -4)

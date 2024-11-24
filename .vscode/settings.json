@@ -1,6 +1,7 @@
 {
 	"files.associations": {
 		"philo.h": "c",
-		"chrono": "c"
+		"chrono": "c",
+		"__mutex_base": "c"
 	}
 }

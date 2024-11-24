@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/22 16:34:40 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:56:26 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,14 @@ int	threads(t_parm *parm)
 	is_error = init_philo(parm);
 	if (is_error != 0)
 		return (-5);
+	// usleep(100);
 	while (i < parm->info->philo_count)
 	{
 		is_error = pthread_create(&p[i], NULL, &do_threed_philo, (void *)parm);
 		if (is_error != 0)
 			return (-6);
 		i++;
+		// usleep(100);
 	}
 	i = 0;
 	while (i < parm->info->philo_count)

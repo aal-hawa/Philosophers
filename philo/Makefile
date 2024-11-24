@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread 
+CFLAGS = -Wall -Wextra -Werror -pthread -g3
 
 SRC = main_mandotiry.c \
 	parsing/parsing.c \
@@ -15,7 +15,7 @@ OBGS = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBGS)
-	$(CC) $(OBGS) -o $(NAME)
+	$(CC) $(OBGS) -o $(NAME) -lpthread
 
 %.o: %.c 
 	$(CC) $(CFLAGS) -c $< -o $@

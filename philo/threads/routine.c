@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:13:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 17:57:52 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:55:39 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,17 @@ void	loop_philo(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 	// philo->next_die_timer += info->to_die;
 	while (1)
 	{
+		//loook
+		// pthread_mutex_lock(&parm->mutex->died_mutex);
 		if (info->is_died == 1)
+		{
+			// pthread_mutex_unlock(&parm->mutex->died_mutex);
 			break;
+		}
+		// pthread_mutex_unlock(&parm->mutex->died_mutex);
+		
+		//unloook
+
 		this_time = get_cur_time_millscd(info);
 		if (last_time == this_time)
 			continue;
@@ -110,6 +119,7 @@ t_philo *select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 {
 	t_fork *fork_right;
 	t_fork *fork_left;
+
 	pthread_mutex_lock(&parm->mutex->last_philo_mutex);
 	philo = parm->philo;
 	philo->timer = 0;
@@ -160,6 +170,7 @@ void *do_threed_philo(void *ptr)
 	parm = (t_parm *)ptr;
 	this_time = 0;
 	philo = NULL;
+
 	philo = select_philo_fork(parm, philo, parm->info);
 	loop_philo(parm, philo, parm->info, this_time);
 	return (NULL);

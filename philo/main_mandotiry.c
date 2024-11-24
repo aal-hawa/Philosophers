@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 12:57:56 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:23:19 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	init_info(t_info *info,int ac, char **arg)
 		info->how_many_eat = 0;
 	info->last_philo_got_it = 1;
 	info->is_get_timer = 0;
-
+	info->is_died = 0;
 	return (is_error);	
 }
 

@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 13:38:51 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:58:37 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,31 +62,31 @@ int init_forks(t_parm *parm)
 	return (0);
 }
 
-int	init_mutex(t_mutex *mutex)
+int	init_mutex(t_parm *parm)
 {
 	int	is_error;
-	mutex->died_mutex_check = 0;
-	mutex->last_philo_mutex_check = 0;
-	mutex->printf_mutex_check = 0;
-	mutex->timer_mutex_check = 0;
+	parm->mutex->died_mutex_check = 0;
+	parm->mutex->last_philo_mutex_check = 0;
+	parm->mutex->printf_mutex_check = 0;
+	parm->mutex->timer_mutex_check = 0;
 	
 
-	is_error =  pthread_mutex_init(&mutex->died_mutex, NULL);
+	is_error =  pthread_mutex_init(&parm->mutex->died_mutex, NULL);
 	if (is_error != 0)
 		return (-4);
-	mutex->died_mutex_check = 1;
-	is_error =  pthread_mutex_init(&mutex->last_philo_mutex, NULL);
+	parm->mutex->died_mutex_check = 1;
+	is_error =  pthread_mutex_init(&parm->mutex->last_philo_mutex, NULL);
 	if (is_error != 0)
 		return (-4);
-	mutex->last_philo_mutex_check = 1;
-	is_error =  pthread_mutex_init(&mutex->printf_mutex, NULL);
+	parm->mutex->last_philo_mutex_check = 1;
+	is_error =  pthread_mutex_init(&parm->mutex->printf_mutex, NULL);
 	if (is_error != 0)
 		return (-4);
-	mutex->printf_mutex_check = 1;
-	is_error =  pthread_mutex_init(&mutex->timer_mutex, NULL);
+	parm->mutex->printf_mutex_check = 1;
+	is_error =  pthread_mutex_init(&parm->mutex->timer_mutex, NULL);
 	if (is_error != 0)
 		return (-4);
-	mutex->timer_mutex_check = 1;
+	parm->mutex->timer_mutex_check = 1;
 	return (0);
 }
 
@@ -110,6 +110,7 @@ int	init_philo(t_parm *parm)
 		this_philo->curr_die_timer = 0;
 		this_philo->next_die_timer = 0;
 		this_philo->how_many_eat = 0;
+		this_philo->next = NULL;
 		if (i == 0)
 		{
 			first_philo = this_philo;
@@ -123,22 +124,28 @@ int	init_philo(t_parm *parm)
 		i++;
 	}
 	parm->philo = first_philo;
-	next_ph = parm->philo;
-	while (next_ph)
-		next_ph = next_ph->next;
+	// next_ph = parm->philo;
+	// while (next_ph)
+	// {
+		
+	// 	next_ph = next_ph->next;
+	// }
 	return (0);
 }
 
 int	init_threads(t_parm *parm)
 {
 	int	is_error;
-	t_mutex	mutex;
+	t_mutex	*mutex;
 	
-	parm->mutex = &mutex;
+	mutex = malloc(sizeof(t_mutex));
+	if (!mutex)
+		return (-2);
+	parm->mutex = mutex;
 	is_error = init_forks(parm);
 	if (is_error != 0)
 		return (is_error);
-	is_error = init_mutex(parm->mutex);
+	is_error = init_mutex(parm);
 	if (is_error != 0)
 		return (is_error);
 	return (0);
