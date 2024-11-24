@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/21 17:32:03 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:09:02 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int		ft_atoi(const char *str);
 int		error_massege(char *str, int is_error);
 int		init_philo(t_parm *parm);
 int		get_cur_time_millscd(t_info *info);
+void	get_first_time_millscd(t_info *info);
 void 	*do_threed_philo(void *ptr);
 void	philo_is_die(t_parm *parm, t_philo *philo, int this_time);
 void	free_all_mlc(t_parm *parm, int is_error);

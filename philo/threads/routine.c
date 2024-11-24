@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:13:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/24 16:55:39 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:00:52 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ t_philo *select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 
 	pthread_mutex_lock(&parm->mutex->last_philo_mutex);
 	philo = parm->philo;
-	philo->timer = 0;
-	philo->is_eat = 0;
+	// philo->timer = 0;
+	// philo->is_eat = 0;
 	fork_left = parm->fork;
 	fork_right = parm->fork;
 	int i = 0;
