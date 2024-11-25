@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 18:07:42 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:33:55 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,9 @@ void				get_first_time_millscd(t_info *info);
 void				*do_threed_philo(void *ptr);
 void				philo_is_die(t_parm *parm, t_philo *philo, int this_time);
 void				free_all_mlc(t_parm *parm, int is_error);
+t_fork	*check_index_fork(t_parm *parm, t_fork *next_fork, t_fork *this_fork, int i);
+t_fork	*check_index_philo(t_philo *first_philo, t_philo *next_ph, t_philo *this_philo, int i);
+t_philo	*select_philo_fork(t_parm *parm, t_philo *philo, t_info *info);
+t_philo	*eating_sleeping_thinking(t_parm *parm, t_philo *philo, t_info *info, int this_time);
+
 #endif

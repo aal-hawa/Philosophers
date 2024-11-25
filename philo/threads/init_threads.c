@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 18:10:53 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/25 20:04:32 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,7 @@ int	init_forks(t_parm *parm)
 		is_error = init_fork(this_fork, i);
 		if (is_error != 0)
 			return (-3);
-		if (i == 0)
-		{
-			parm->fork = this_fork;
-			next_fork = this_fork;
-		}
-		else
-		{
-			next_fork->next = this_fork;
-			next_fork = next_fork->next;
-		}
+		next_fork =	check_index_fork(parm, next_fork, this_fork, i);
 		i++;
 	}
 	return (0);
@@ -110,16 +101,7 @@ int	init_philo(t_parm *parm)
 		this_philo->next_die_timer = 0;
 		this_philo->how_many_eat = 0;
 		this_philo->next = NULL;
-		if (i == 0)
-		{
-			first_philo = this_philo;
-			next_ph = this_philo;
-		}
-		else
-		{
-			next_ph->next = this_philo;
-			next_ph = next_ph->next;
-		}
+		next_ph = check_index_philo(first_philo, next_ph, this_philo, i);
 		i++;
 	}
 	parm->philo = first_philo;
