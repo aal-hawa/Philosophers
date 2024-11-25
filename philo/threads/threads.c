@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/24 18:09:39 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:06:30 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,17 @@ int	init_pthread(pthread_t **p, t_info *info)
 		return (-1);
 	return (0);
 }
-
-int	threads(t_parm *parm)
+int	create_threads(t_parm *parm, pthread_t *p, int is_error)
 {
-	pthread_t *p;
-	// t_philo	*next_philo;
-	int is_error;
-	int i;
-	
-	i = 0;
-	// next_philo = parm->philo;
-	is_error = init_pthread(&p, parm->info);
-	if (is_error != 0)
-		return (is_error);
-	parm->pthrd = p;
+	int	i;
 
-	is_error = init_threads(parm);
-	if (is_error != 0)
-		return (is_error);
-	is_error = init_philo(parm);
-	if (is_error != 0)
-		return (-5);
-	// usleep(100);
-	get_first_time_millscd(parm->info);
+	i = 0;
 	while (i < parm->info->philo_count)
 	{
 		is_error = pthread_create(&p[i], NULL, &do_threed_philo, (void *)parm);
 		if (is_error != 0)
 			return (-6);
 		i++;
-		// usleep(100);
 	}
 	i = 0;
 	while (i < parm->info->philo_count)
@@ -75,5 +56,25 @@ int	threads(t_parm *parm)
 			return (-7);
 		i++;
 	}
+	return (is_error);
+}
+
+int	threads(t_parm *parm)
+{
+	pthread_t	*p;
+	int			is_error;
+
+	is_error = init_pthread(&p, parm->info);
+	if (is_error != 0)
+		return (is_error);
+	parm->pthrd = p;
+	is_error = init_threads(parm);
+	if (is_error != 0)
+		return (is_error);
+	is_error = init_philo(parm);
+	if (is_error != 0)
+		return (-5);
+	get_first_time_millscd(parm->info);
+	is_error = create_threads(parm, parm, is_error);
 	return (0);
 }

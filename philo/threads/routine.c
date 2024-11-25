@@ -6,13 +6,14 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:13:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 15:14:39 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:09:13 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	philo_sleaping(t_parm *parm, t_philo *philo, t_info *info, int this_time)
+void	philo_sleaping(t_parm *parm, t_philo *philo, t_info *info,
+		int this_time)
 {
 	philo->timer++;
 	if (philo->timer > info->to_sleep)
@@ -23,7 +24,7 @@ void	philo_sleaping(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 	}
 }
 
-t_philo *	philo_eating(t_parm *parm, t_philo *philo, t_info *info, int this_time)
+t_philo	*philo_eating(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 {
 	philo->timer++;
 	if (philo->timer > info->to_eat)
@@ -81,24 +82,20 @@ void	loop_philo(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 	last_time = -1;
 	while (1)
 	{
-		//loook
 		pthread_mutex_lock(&parm->mutex->died_mutex);
-		if ((info->is_died == 1 && info->how_many_eat == 0) || (info->is_died == 1 && info->philo_count == 1))
+		if ((info->is_died == 1 && info->how_many_eat == 0)
+			|| (info->is_died == 1 && info->philo_count == 1))
 		{
 			pthread_mutex_unlock(&parm->mutex->died_mutex);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&parm->mutex->died_mutex);
-		//unloook
 		if (info->how_many_eat > 0 && philo->how_many_eat == info->how_many_eat)
 			break ;
-
 		this_time = get_cur_time_millscd(info);
 		if (last_time == this_time)
-			continue;
+			continue ;
 		last_time = this_time;
-		// if (info->how_many_eat > 0 && philo->how_many_eat == info->how_many_eat)
-		// 	break ;
 		if (info->philo_count > 1)
 		{
 			if (philo->is_eat_sleep == 0 && philo->is_eat == 0)
@@ -115,11 +112,11 @@ void	loop_philo(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 	}
 }
 
-t_philo *select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
+t_philo	*select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 {
-	t_fork *fork_right;
-	t_fork *fork_left;
-	t_fork *fork_swap;
+	t_fork	*fork_right;
+	t_fork	*fork_left;
+	t_fork	*fork_swap;
 
 	pthread_mutex_lock(&parm->mutex->last_philo_mutex);
 	philo = parm->philo;
@@ -148,7 +145,7 @@ t_philo *select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 			break ;
 		}
 		fork_right = fork_right->next;
-		if (!fork_right && info->philo_count > 1 )
+		if (!fork_right && info->philo_count > 1)
 		{
 			philo->fork_right = parm->fork;
 			break ;
@@ -165,15 +162,15 @@ t_philo *select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 	return (philo);
 }
 
-void *do_threed_philo(void *ptr)
+void	*do_threed_philo(void *ptr)
 {
-	t_parm *parm;
-	t_philo *philo;
-	int	this_time;
+	t_parm	*parm;
+	t_philo	*philo;
+	int		this_time;
+
 	parm = (t_parm *)ptr;
 	this_time = 0;
 	philo = NULL;
-
 	philo = select_philo_fork(parm, philo, parm->info);
 	loop_philo(parm, philo, parm->info, this_time);
 	return (NULL);

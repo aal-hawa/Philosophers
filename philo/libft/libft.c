@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:36:58 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/19 11:42:13 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/25 18:13:16 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_is_char(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{
@@ -51,7 +51,7 @@ int	ft_atoi(const char *str)
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
-		if (str[i] == '-' )
+		if (str[i] == '-')
 			sign = -1;
 		i++;
 	}
