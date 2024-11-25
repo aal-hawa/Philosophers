@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:13:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/24 18:00:52 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/25 12:51:32 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,38 @@ t_philo *	philo_eating(t_parm *parm, t_philo *philo, t_info *info, int this_time
 	return (philo);
 }
 
+// t_philo	*cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
+// {
+// 	pthread_mutex_lock(&philo->fork_right->fork_mutex);
+// 	pthread_mutex_lock(&philo->fork_left->fork_mutex);
+// 	if (philo->fork_right->is_allowed == 1 && philo->fork_left->is_allowed == 1)
+// 	{
+// 		pthread_mutex_lock(&philo->fork_right->last_eating_mutex);
+// 		if (philo->fork_right->last_who_eating != philo->index)
+// 		{
+// 			pthread_mutex_lock(&philo->fork_left->last_eating_mutex);
+// 			if (philo->fork_left->last_who_eating != philo->index)
+// 			{
+// 				philo->fork_right->is_allowed = 0;
+// 				philo->fork_right->last_who_eating = philo->index;
+// 				printing(parm, "has taken a fork", philo->index, this_time);
+// 				philo->fork_left->is_allowed = 0;
+// 				philo->fork_left->last_who_eating = philo->index;
+// 				printing(parm, "has taken a fork", philo->index, this_time);
+// 				philo->is_eat = 1;
+// 				printing(parm, "is eating", philo->index, this_time);
+// 				// philo->next_die_timer += parm->info->to_die;
+// 				philo->next_die_timer = 0;
+// 			}
+// 			pthread_mutex_unlock(&philo->fork_left->last_eating_mutex);
+// 		}
+// 		pthread_mutex_unlock(&philo->fork_right->last_eating_mutex);
+// 	}
+// 	pthread_mutex_unlock(&philo->fork_left->fork_mutex);
+// 	pthread_mutex_unlock(&philo->fork_right->fork_mutex);
+// 	return (philo);
+// }
+
 t_philo	*cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
 {
 	pthread_mutex_lock(&philo->fork_right->fork_mutex);
@@ -69,10 +101,59 @@ t_philo	*cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
 		}
 		pthread_mutex_unlock(&philo->fork_right->last_eating_mutex);
 	}
-	pthread_mutex_unlock(&philo->fork_right->fork_mutex);
 	pthread_mutex_unlock(&philo->fork_left->fork_mutex);
+	pthread_mutex_unlock(&philo->fork_right->fork_mutex);
 	return (philo);
 }
+
+// t_philo *cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
+// {
+//     pthread_mutex_t *first_mutex, *second_mutex;
+//     t_fork *first_fork, *second_fork;
+
+//     // Determine the locking order based on addresses
+//     if (&philo->fork_left->fork_mutex < &philo->fork_right->fork_mutex) {
+//         first_mutex = &philo->fork_left->fork_mutex;
+//         second_mutex = &philo->fork_right->fork_mutex;
+//         first_fork = philo->fork_left;
+//         second_fork = philo->fork_right;
+//     } else {
+//         first_mutex = &philo->fork_right->fork_mutex;
+//         second_mutex = &philo->fork_left->fork_mutex;
+//         first_fork = philo->fork_right;
+//         second_fork = philo->fork_left;
+//     }
+
+//     // Lock in consistent order
+//     pthread_mutex_lock(first_mutex);
+//     pthread_mutex_lock(second_mutex);
+
+//     if (first_fork->is_allowed == 1 && second_fork->is_allowed == 1) {
+//         pthread_mutex_lock(&first_fork->last_eating_mutex);
+//         if (first_fork->last_who_eating != philo->index) {
+//             pthread_mutex_lock(&second_fork->last_eating_mutex);
+//             if (second_fork->last_who_eating != philo->index) {
+//                 first_fork->is_allowed = 0;
+//                 first_fork->last_who_eating = philo->index;
+//                 printing(parm, "has taken a fork", philo->index, this_time);
+//                 second_fork->is_allowed = 0;
+//                 second_fork->last_who_eating = philo->index;
+//                 printing(parm, "has taken a fork", philo->index, this_time);
+//                 philo->is_eat = 1;
+//                 printing(parm, "is eating", philo->index, this_time);
+//                 philo->next_die_timer = 0;
+//             }
+//             pthread_mutex_unlock(&second_fork->last_eating_mutex);
+//         }
+//         pthread_mutex_unlock(&first_fork->last_eating_mutex);
+//     }
+
+//     // Unlock in reverse order
+//     pthread_mutex_unlock(second_mutex);
+//     pthread_mutex_unlock(first_mutex);
+
+//     return philo;
+// }
 
 void	loop_philo(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 {
@@ -119,6 +200,7 @@ t_philo *select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 {
 	t_fork *fork_right;
 	t_fork *fork_left;
+	t_fork *fork_swap;
 
 	pthread_mutex_lock(&parm->mutex->last_philo_mutex);
 	philo = parm->philo;
@@ -126,10 +208,8 @@ t_philo *select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 	// philo->is_eat = 0;
 	fork_left = parm->fork;
 	fork_right = parm->fork;
-	int i = 0;
 	while (philo)
 	{
-		i++;
 		if (philo->index == info->last_philo_got_it)
 			break ;
 		philo = philo->next;
@@ -156,6 +236,12 @@ t_philo *select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 			philo->fork_right = parm->fork;
 			break ;
 		}
+	}
+	if (&fork_left->fork_mutex < &fork_right->fork_mutex)
+	{
+		fork_swap = philo->fork_left;
+		philo->fork_left = philo->fork_right;
+		philo->fork_right = fork_swap;
 	}
 	info->last_philo_got_it++;
 	pthread_mutex_unlock(&parm->mutex->last_philo_mutex);
