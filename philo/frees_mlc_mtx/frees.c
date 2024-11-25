@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:58:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 12:56:34 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:49:26 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,10 @@ void	free_philos(t_parm *parm)
 	}
 }
 
-void	pthread_detach_func(t_parm *parm)
-{
-	// int	i;
-
-	// i = 0;
-	// while(i < parm->info->philo_count)
-	// {
-	// 	pthread_detach(parm->pthrd[i]);
-	// 	i++;
-	// }
-	free(parm->pthrd);
-}
+// void	pthread_detach_func(t_parm *parm)
+// {
+// 	free(parm->pthrd);
+// }
 
 
 
@@ -77,7 +69,8 @@ void	free_all_mlc(t_parm *parm, int is_error)
 	if (is_error == -2)
 		return ;
 	// free pthrd
-	pthread_detach_func(parm);
+	free(parm->pthrd);
+	// pthread_detach_func(parm);
 	// free forks
 	free_forks(parm);
 	if (is_error == -3)

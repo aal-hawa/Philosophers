@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 12:57:55 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/24 18:08:37 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/25 15:16:12 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ int	get_cur_time_millscd(t_info *info)
 	long curr_time_microsec;
 	int	curr_time_millsecond;
 	
-	// if (info->is_get_timer == 0)
-	// {
-	// 	info->is_get_timer = 1;
-	// 	gettimeofday(&info->fst_time, NULL);
-	// }
 	gettimeofday(&cur_time, NULL);
 	curr_time_sec = cur_time.tv_sec - info->fst_time.tv_sec;
 	curr_time_microsec = cur_time.tv_usec - info->fst_time.tv_usec;
