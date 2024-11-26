@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 18:06:44 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:11:24 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int	main(int ac, char **arg)
 	t_info	info;
 	t_parm	parm;
 	int		is_error;
-	
+
 	if (ac < 5 || ac > 6)
 	{
 		error_massege("Error four or five paramiter", 0);
-		return(1);
+		return (1);
 	}
 	is_error = parsing(ac, arg);
 	if (is_error == -1)

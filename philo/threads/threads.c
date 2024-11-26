@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 18:06:30 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:13:46 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	init_pthread(pthread_t **p, t_info *info)
 		return (-1);
 	return (0);
 }
+
 int	create_threads(t_parm *parm, pthread_t *p, int is_error)
 {
 	int	i;
@@ -75,6 +76,6 @@ int	threads(t_parm *parm)
 	if (is_error != 0)
 		return (-5);
 	get_first_time_millscd(parm->info);
-	is_error = create_threads(parm, parm, is_error);
+	is_error = create_threads(parm, p, is_error);
 	return (0);
 }

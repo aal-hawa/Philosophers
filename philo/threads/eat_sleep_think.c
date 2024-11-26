@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 20:33:08 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 20:33:39 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:57:34 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ t_philo	*philo_eating(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 		pthread_mutex_unlock(&philo->fork_left->fork_mutex);
 		philo->how_many_eat++;
 		philo->is_eat = 0;
+		if (info->how_many_eat > 0 && philo->how_many_eat == info->how_many_eat)
+			return (philo);
 		printing(parm, "is sleeping", philo->index, this_time);
 	}
 	return (philo);
 }
+
 void	take_forks_eating(t_parm *parm, t_philo *philo, int this_time)
 {
 	philo->fork_right->is_allowed = 0;
@@ -79,7 +82,8 @@ t_philo	*cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
 	return (philo);
 }
 
-t_philo	*eating_sleeping_thinking(t_parm *parm, t_philo *philo, t_info *info, int this_time)
+t_philo	*eating_sleeping_thinking(t_parm *parm,
+		t_philo *philo, t_info *info, int this_time)
 {
 	if (info->philo_count > 1)
 	{

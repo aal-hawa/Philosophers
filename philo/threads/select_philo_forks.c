@@ -6,13 +6,13 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 20:28:58 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 20:30:24 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:42:10 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-t_fork	*select_left_forks(t_parm *parm, t_philo *philo, t_info *info, t_fork *fork_left)
+t_fork	*select_left_forks(t_philo *philo, t_fork *fork_left)
 {
 	while (fork_left)
 	{
@@ -26,7 +26,8 @@ t_fork	*select_left_forks(t_parm *parm, t_philo *philo, t_info *info, t_fork *fo
 	return (fork_left);
 }
 
-t_fork	*select_right_fork(t_parm *parm, t_philo *philo, t_info *info, t_fork *fork_right)
+t_fork	*select_right_fork(t_parm *parm,
+		t_philo *philo, t_info *info, t_fork *fork_right)
 {
 	while (fork_right)
 	{
@@ -44,7 +45,6 @@ t_fork	*select_right_fork(t_parm *parm, t_philo *philo, t_info *info, t_fork *fo
 	}
 	return (fork_right);
 }
-
 
 t_philo	*select_philo(t_parm *parm, t_philo *philo, t_info *info)
 {
@@ -68,7 +68,7 @@ t_philo	*select_philo_fork(t_parm *parm, t_philo *philo, t_info *info)
 	fork_left = parm->fork;
 	fork_right = parm->fork;
 	philo = select_philo(parm, philo, info);
-	fork_left = select_left_forks(parm, philo, info, fork_left);
+	fork_left = select_left_forks(philo, fork_left);
 	fork_right = select_right_fork(parm, philo, info, fork_right);
 	if (philo->index % 2 != 0)
 	{

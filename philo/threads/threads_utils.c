@@ -6,13 +6,14 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 18:14:37 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 20:05:28 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:43:05 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-t_fork	*check_index_fork(t_parm *parm, t_fork *next_fork, t_fork *this_fork, int i)
+t_fork	*check_index_fork(t_parm *parm,
+		t_fork *next_fork, t_fork *this_fork, int i)
 {
 	if (i == 0)
 	{
@@ -27,11 +28,12 @@ t_fork	*check_index_fork(t_parm *parm, t_fork *next_fork, t_fork *this_fork, int
 	return (next_fork);
 }
 
-t_fork	*check_index_philo(t_philo *first_philo, t_philo *next_ph, t_philo *this_philo, int i)
+t_philo	*check_index_philo(t_parm *parm,
+		t_philo *next_ph, t_philo *this_philo, int i)
 {
 	if (i == 0)
 	{
-		first_philo = this_philo;
+		parm->philo = this_philo;
 		next_ph = this_philo;
 	}
 	else

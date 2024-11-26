@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:13:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 20:33:35 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:41:42 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	loop_philo(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 	while (1)
 	{
 		pthread_mutex_lock(&parm->mutex->died_mutex);
-		if ((info->is_died == 1 && info->how_many_eat == 0)
-			|| (info->is_died == 1 && info->philo_count == 1))
+		if (info->is_died == 1)
 		{
 			pthread_mutex_unlock(&parm->mutex->died_mutex);
 			break ;
@@ -33,7 +32,7 @@ void	loop_philo(t_parm *parm, t_philo *philo, t_info *info, int this_time)
 		if (last_time == this_time)
 			continue ;
 		last_time = this_time;
-		philo = eating_sleeping_thinking(parm, philo, info, this_time);	
+		philo = eating_sleeping_thinking(parm, philo, info, this_time);
 		philo->curr_die_timer++;
 		philo->next_die_timer++;
 		philo_is_die(parm, philo, this_time);
