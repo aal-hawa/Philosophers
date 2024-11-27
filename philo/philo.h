@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/27 17:36:52 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/27 19:23:03 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_info
 	int				last_philo_got_it;
 	int				is_get_timer;
 	struct timeval	fst_time;
+	struct timeval	cur_time;
+
 
 }					t_info;
 
