@@ -6,13 +6,13 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/27 15:30:59 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:08:15 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_args(t_info *info, int ac, char **arg, int is_error)
+static int	check_args(t_info *info, int ac, char **arg, int is_error)
 {
 	if (ac == 6)
 	{
@@ -25,7 +25,7 @@ int	check_args(t_info *info, int ac, char **arg, int is_error)
 	return (is_error);
 }
 
-int	init_info(t_info *info, int ac, char **arg)
+static int	init_info(t_info *info, int ac, char **arg)
 {
 	int	is_error;
 

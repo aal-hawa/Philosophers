@@ -1,10 +1,10 @@
-==8114== Helgrind, a thread error detector
-==8114== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
-==8114== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==8114== Command: ./philo 2 40000 300 300 5
-==8114== 
-==8114== 
-==8114== Use --history-level=approx or =none to gain increased speed, at
-==8114== the cost of reduced accuracy of conflicting-access information
-==8114== For lists of detected and suppressed errors, rerun with: -s
-==8114== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1062425 from 87)
+==79818== Helgrind, a thread error detector
+==79818== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==79818== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==79818== Command: ./philo 3 410 200 200 5
+==79818== 
+==79818== 
+==79818== Use --history-level=approx or =none to gain increased speed, at
+==79818== the cost of reduced accuracy of conflicting-access information
+==79818== For lists of detected and suppressed errors, rerun with: -s
+==79818== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 64806 from 76)

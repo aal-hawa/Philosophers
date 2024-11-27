@@ -6,13 +6,13 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/26 12:41:28 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:25:43 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-int	init_fork(t_fork *fork, int index)
+static int	init_fork(t_fork *fork, int index)
 {
 	int	is_error;
 
@@ -29,7 +29,7 @@ int	init_fork(t_fork *fork, int index)
 	return (0);
 }
 
-int	init_forks(t_parm *parm)
+static int	init_forks(t_parm *parm)
 {
 	int		i;
 	int		is_error;
@@ -53,7 +53,7 @@ int	init_forks(t_parm *parm)
 	return (0);
 }
 
-int	init_mutex(t_parm *parm)
+static int	init_mutex(t_parm *parm)
 {
 	int	is_error;
 
@@ -96,7 +96,7 @@ int	init_philo(t_parm *parm)
 		this_philo->is_eat = 0;
 		this_philo->is_eat_sleep = 0;
 		this_philo->timer = 0;
-		this_philo->curr_die_timer = 0;
+		this_philo->is_get_fork_one = 0;
 		this_philo->next_die_timer = 0;
 		this_philo->how_many_eat = 0;
 		this_philo->next = NULL;

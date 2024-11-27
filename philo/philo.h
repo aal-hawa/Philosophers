@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/26 12:39:56 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:36:52 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_philo
 	int				curr_die_timer;
 	int				next_die_timer;
 	int				how_many_eat;
+	int				is_get_fork_one;
+	int				this_time;
 	t_fork			*fork_right;
 	t_fork			*fork_left;
 	struct s_philo	*next;
@@ -81,10 +83,7 @@ typedef struct s_parm
 
 int					parsing(int ac, char **arg);
 int					init_threads(t_parm *parm);
-void				ft_putstr_fd(char *s, int philo_nbr, int is_malloc,
-						int timer);
 int					threads(t_parm *parm);
-int					time_now(t_parm *parm);
 void				printing(t_parm *parm, char *s, int philo_nbr, int timer);
 void				printing_died(t_parm *parm, char *s, int philo_nbr,
 						int timer);
@@ -95,15 +94,15 @@ int					init_philo(t_parm *parm);
 int					get_cur_time_millscd(t_info *info);
 void				get_first_time_millscd(t_info *info);
 void				*do_threed_philo(void *ptr);
-void				philo_is_die(t_parm *parm, t_philo *philo, int this_time);
+void				philo_is_die(t_parm *parm, t_philo **philo);
 void				free_all_mlc(t_parm *parm, int is_error);
 t_fork				*check_index_fork(t_parm *parm, t_fork *next_fork,
 						t_fork *this_fork, int i);
 t_philo				*check_index_philo(t_parm *parm, t_philo *next_ph,
 						t_philo *this_philo, int i);
-t_philo				*select_philo_fork(t_parm *parm, t_philo *philo,
+void				select_philo_fork(t_parm *parm, t_philo **philo,
 						t_info *info);
-t_philo				*eating_sleeping_thinking(t_parm *parm, t_philo *philo,
-						t_info *info, int this_time);
+void				eating_sleeping_thinking(t_parm *parm, t_philo **philo,
+						t_info *info);
 
 #endif

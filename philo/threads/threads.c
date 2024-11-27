@@ -6,18 +6,18 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/26 11:13:46 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:34:31 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	philo_is_die(t_parm *parm, t_philo *philo, int this_time)
+void	philo_is_die(t_parm *parm, t_philo **philo)
 {
 	int	is_can_print;
 
 	is_can_print = 1;
-	if (philo->next_die_timer > parm->info->to_die)
+	if ((*philo)->next_die_timer > parm->info->to_die)
 	{
 		pthread_mutex_lock(&parm->mutex->died_mutex);
 		if (parm->info->is_died == 1)
@@ -25,11 +25,11 @@ void	philo_is_die(t_parm *parm, t_philo *philo, int this_time)
 		parm->info->is_died = 1;
 		pthread_mutex_unlock(&parm->mutex->died_mutex);
 		if (is_can_print == 1)
-			printing_died(parm, "died", philo->index, this_time);
+			printing_died(parm, "died", (*philo)->index, (*philo)->this_time);
 	}
 }
 
-int	init_pthread(pthread_t **p, t_info *info)
+static int	init_pthread(pthread_t **p, t_info *info)
 {
 	*p = malloc(sizeof(pthread_t) * info->philo_count);
 	if (!*p)
@@ -37,7 +37,7 @@ int	init_pthread(pthread_t **p, t_info *info)
 	return (0);
 }
 
-int	create_threads(t_parm *parm, pthread_t *p, int is_error)
+static int	create_threads(t_parm *parm, pthread_t *p, int is_error)
 {
 	int	i;
 
