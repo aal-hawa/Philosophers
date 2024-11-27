@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 20:33:08 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/26 12:57:34 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:28:10 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,25 @@ void	take_forks_eating(t_parm *parm, t_philo *philo, int this_time)
 t_philo	*cheak_can_eat(t_parm *parm, t_philo *philo, int this_time)
 {
 	pthread_mutex_lock(&philo->fork_right->fork_mutex);
-	pthread_mutex_lock(&philo->fork_left->fork_mutex);
-	if (philo->fork_right->is_allowed == 1 && philo->fork_left->is_allowed == 1)
+	if (philo->fork_right->is_allowed == 1)
 	{
-		pthread_mutex_lock(&philo->fork_right->last_eating_mutex);
-		if (philo->fork_right->last_who_eating != philo->index)
+		pthread_mutex_lock(&philo->fork_left->fork_mutex);
+		if (philo->fork_left->is_allowed == 1)
 		{
-			pthread_mutex_lock(&philo->fork_left->last_eating_mutex);
-			if (philo->fork_left->last_who_eating != philo->index)
+			pthread_mutex_lock(&philo->fork_right->last_eating_mutex);
+			if (philo->fork_right->last_who_eating != philo->index)
 			{
-				take_forks_eating(parm, philo, this_time);
+				pthread_mutex_lock(&philo->fork_left->last_eating_mutex);
+				if (philo->fork_left->last_who_eating != philo->index)
+				{
+					take_forks_eating(parm, philo, this_time);
+				}
+				pthread_mutex_unlock(&philo->fork_left->last_eating_mutex);
 			}
-			pthread_mutex_unlock(&philo->fork_left->last_eating_mutex);
+			pthread_mutex_unlock(&philo->fork_right->last_eating_mutex);
 		}
-		pthread_mutex_unlock(&philo->fork_right->last_eating_mutex);
+		pthread_mutex_unlock(&philo->fork_left->fork_mutex);
 	}
-	pthread_mutex_unlock(&philo->fork_left->fork_mutex);
 	pthread_mutex_unlock(&philo->fork_right->fork_mutex);
 	return (philo);
 }

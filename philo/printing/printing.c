@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:24:56 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/27 15:43:56 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/27 16:25:12 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	error_massege(char *str, int is_error)
 
 void	printing_died(t_parm *parm, char *s, int philo_nbr, int timer)
 {
+	usleep(5000);
 	pthread_mutex_lock(&parm->mutex->printf_mutex);
 	printf("%d %d %s\n", timer, philo_nbr, s);
 	pthread_mutex_unlock(&parm->mutex->printf_mutex);
