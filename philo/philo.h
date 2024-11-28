@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:09:24 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/27 19:23:03 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:05:23 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ typedef struct s_info
 	struct timeval	fst_time;
 	struct timeval	cur_time;
 
-
 }					t_info;
 
 typedef struct s_parm
@@ -89,19 +88,11 @@ int					threads(t_parm *parm);
 void				printing(t_parm *parm, char *s, int philo_nbr, int timer);
 void				printing_died(t_parm *parm, char *s, int philo_nbr,
 						int timer);
-int					check_is_char(char *str);
-int					ft_atoi(const char *str);
 int					error_massege(char *str, int is_error);
-int					init_philo(t_parm *parm);
 int					get_cur_time_millscd(t_info *info);
 void				get_first_time_millscd(t_info *info);
 void				*do_threed_philo(void *ptr);
-void				philo_is_die(t_parm *parm, t_philo **philo);
 void				free_all_mlc(t_parm *parm, int is_error);
-t_fork				*check_index_fork(t_parm *parm, t_fork *next_fork,
-						t_fork *this_fork, int i);
-t_philo				*check_index_philo(t_parm *parm, t_philo *next_ph,
-						t_philo *this_philo, int i);
 void				select_philo_fork(t_parm *parm, t_philo **philo,
 						t_info *info);
 void				eating_sleeping_thinking(t_parm *parm, t_philo **philo,

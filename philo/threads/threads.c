@@ -6,27 +6,52 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/27 17:34:31 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:04:02 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	philo_is_die(t_parm *parm, t_philo **philo)
+static t_philo	*check_index_philo(t_parm *parm,
+		t_philo *next_ph, t_philo *this_philo, int i)
 {
-	int	is_can_print;
-
-	is_can_print = 1;
-	if ((*philo)->next_die_timer > parm->info->to_die)
+	if (i == 0)
 	{
-		pthread_mutex_lock(&parm->mutex->died_mutex);
-		if (parm->info->is_died == 1)
-			is_can_print = 0;
-		parm->info->is_died = 1;
-		pthread_mutex_unlock(&parm->mutex->died_mutex);
-		if (is_can_print == 1)
-			printing_died(parm, "died", (*philo)->index, (*philo)->this_time);
+		parm->philo = this_philo;
+		next_ph = this_philo;
 	}
+	else
+	{
+		next_ph->next = this_philo;
+		next_ph = next_ph->next;
+	}
+	return (next_ph);
+}
+
+static int	init_philo(t_parm *parm)
+{
+	int		i;
+	t_philo	*this_philo;
+	t_philo	*next_ph;
+
+	i = 0;
+	while (i < parm->info->philo_count)
+	{
+		this_philo = malloc(sizeof(t_philo));
+		if (!this_philo)
+			return (-1);
+		this_philo->index = i + 1;
+		this_philo->is_eat = 0;
+		this_philo->is_eat_sleep = 0;
+		this_philo->timer = 0;
+		this_philo->is_get_fork_one = 0;
+		this_philo->next_die_timer = 0;
+		this_philo->how_many_eat = 0;
+		this_philo->next = NULL;
+		next_ph = check_index_philo(parm, next_ph, this_philo, i);
+		i++;
+	}
+	return (0);
 }
 
 static int	init_pthread(pthread_t **p, t_info *info)

@@ -6,11 +6,27 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 13:52:09 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/27 17:25:43 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/28 16:05:14 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
+
+static t_fork	*check_index_fork(t_parm *parm,
+		t_fork *next_fork, t_fork *this_fork, int i)
+{
+	if (i == 0)
+	{
+		parm->fork = this_fork;
+		next_fork = this_fork;
+	}
+	else
+	{
+		next_fork->next = this_fork;
+		next_fork = next_fork->next;
+	}
+	return (next_fork);
+}
 
 static int	init_fork(t_fork *fork, int index)
 {
@@ -77,32 +93,6 @@ static int	init_mutex(t_parm *parm)
 	if (is_error != 0)
 		return (-4);
 	parm->mutex->timer_mutex_check = 1;
-	return (0);
-}
-
-int	init_philo(t_parm *parm)
-{
-	int		i;
-	t_philo	*this_philo;
-	t_philo	*next_ph;
-
-	i = 0;
-	while (i < parm->info->philo_count)
-	{
-		this_philo = malloc(sizeof(t_philo));
-		if (!this_philo)
-			return (-1);
-		this_philo->index = i + 1;
-		this_philo->is_eat = 0;
-		this_philo->is_eat_sleep = 0;
-		this_philo->timer = 0;
-		this_philo->is_get_fork_one = 0;
-		this_philo->next_die_timer = 0;
-		this_philo->how_many_eat = 0;
-		this_philo->next = NULL;
-		next_ph = check_index_philo(parm, next_ph, this_philo, i);
-		i++;
-	}
 	return (0);
 }
 

@@ -4,10 +4,9 @@ CFLAGS = -Wall -Wextra -Werror -pthread
 
 SRC = main_mandotiry.c \
 	parsing/parsing.c \
-	threads/threads.c threads/init_threads.c threads/routine.c threads/threads_utils.c\
+	threads/threads.c threads/init_threads.c threads/routine.c \
 	threads/eat_sleep_think.c threads/select_philo_forks.c \
 	printing/printing.c \
-	libft/libft.c \
 	timer/timer.c  \
 	frees_mlc_mtx/frees.c 
 

@@ -6,13 +6,13 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:58:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/25 18:09:40 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/11/28 15:54:47 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-void	free_forks(t_parm *parm)
+static void	free_forks(t_parm *parm)
 {
 	t_fork	*this_fork;
 	t_fork	*next_fork;
@@ -28,7 +28,7 @@ void	free_forks(t_parm *parm)
 	}
 }
 
-void	destroy_mutexs(t_parm *parm)
+static void	destroy_mutexs(t_parm *parm)
 {
 	if (parm->mutex->printf_mutex_check == 1)
 		pthread_mutex_destroy(&parm->mutex->printf_mutex);
@@ -41,7 +41,7 @@ void	destroy_mutexs(t_parm *parm)
 	free(parm->mutex);
 }
 
-void	free_philos(t_parm *parm)
+static void	free_philos(t_parm *parm)
 {
 	t_philo	*this_philo;
 	t_philo	*next_philo;
