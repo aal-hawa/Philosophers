@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:13:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/28 16:02:37 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/12/04 13:11:30 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	*do_threed_philo(void *ptr)
 	philo = NULL;
 	select_philo_fork(parm, &philo, parm->info);
 	philo->this_time = 0;
+	if (philo->index % 2 != 0)
+		usleep(100);
 	loop_philo(parm, &philo, parm->info);
 	return (NULL);
 }

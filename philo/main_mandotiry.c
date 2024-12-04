@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/30 18:33:15 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/12/04 12:01:25 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_atoi(const char *str)
 	}
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
-		res = (res * 10 )+ (str[i] - '0');
+		res = (res * 10) + (str[i] - '0');
 		if (res > 2147483647)
 			return (0);
 		i++;
