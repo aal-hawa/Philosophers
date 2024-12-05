@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 11:58:04 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/28 15:54:47 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:48:16 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static void	free_philos(t_parm *parm)
 	{
 		next_philo = this_philo->next;
 		free(this_philo);
+		this_philo = NULL;
 		this_philo = next_philo;
 	}
 }

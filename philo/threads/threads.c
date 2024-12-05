@@ -6,14 +6,14 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:25:10 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/11/28 16:04:02 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:51:11 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static t_philo	*check_index_philo(t_parm *parm,
-		t_philo *next_ph, t_philo *this_philo, int i)
+static t_philo	*check_index_philo(t_parm *parm, t_philo *next_ph,
+		t_philo *this_philo, int i)
 {
 	if (i == 0)
 	{
@@ -102,5 +102,5 @@ int	threads(t_parm *parm)
 		return (-5);
 	get_first_time_millscd(parm->info);
 	is_error = create_threads(parm, p, is_error);
-	return (0);
+	return (is_error);
 }
