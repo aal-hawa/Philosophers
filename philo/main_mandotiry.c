@@ -6,7 +6,7 @@
 /*   By: aal-hawa <aal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 16:08:49 by aal-hawa          #+#    #+#             */
-/*   Updated: 2024/12/04 12:01:25 by aal-hawa         ###   ########.fr       */
+/*   Updated: 2024/12/04 20:20:57 by aal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	init_info(t_info *info, int ac, char **arg)
 
 	is_error = 0;
 	info->philo_count = ft_atoi(arg[1]);
-	if (info->philo_count == 0)
+	if (info->philo_count == 0 || info->philo_count > 200)
 		is_error = error_massege("Error parsing", is_error);
 	info->to_die = ft_atoi(arg[2]);
 	if (info->to_die == 0)
